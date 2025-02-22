@@ -9,7 +9,7 @@ let score = JSON.parse(localStorage.getItem("score")) || {
 };
 document.getElementById(
   "container"
-).innerHTML = `<p>You <img src="images/rock.png" class="result-img" alt="Rock"> <img src="images/paper.png" class="result-img"  alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
+).innerHTML = `<p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
 function game() {
   // Code for the logic of game
   if (yourGuess == computerGuess) {
@@ -29,7 +29,7 @@ function game() {
   localStorage.setItem("score", JSON.stringify(score));
   document.getElementById(
     "container"
-  ).innerHTML = `<p>You <img src="images/${yourGuess}.png" class="result-img" alt="Rock"> <img src="images/${computerGuess}.png" class="result-img"  alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
+  ).innerHTML = `<p>You <img src="images/${yourGuess}.png" class="result-img" alt="Rock"> <img src="images/${computerGuess}.png" class="result-img" alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
 }
 function choice() {
   // Takes the computer choice and returns it
@@ -61,7 +61,7 @@ document.getElementById("scissor").addEventListener("click", function () {
 document.getElementById("autoplay").addEventListener("click", function () {
   if (!isAutoPlay) {
     isAutoPlay = setInterval(function () {
-      yourGuess = computerGuess;
+      yourGuess = choice();
       choice();
       game();
     }, 1000);
@@ -69,7 +69,7 @@ document.getElementById("autoplay").addEventListener("click", function () {
   } else {
     clearInterval(isAutoPlay);
     isAutoPlay = false;
-    document.getElementById("autoplay").innerText = "Auto Play";
+    document.getElementById("autoplay").innerText = "Auto Play";  
   }
  });
 document.getElementById("reset").addEventListener("click", function () {
@@ -79,5 +79,5 @@ document.getElementById("reset").addEventListener("click", function () {
   localStorage.removeItem("score");
   document.getElementById(
     "container"
-  ).innerHTML = `<p>You <img src="images/rock.png" class="result-img" alt="Rock"> <img src="images/paper.png" class="result-img"  alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
+  ).innerHTML = `<p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
 });
