@@ -1,14 +1,15 @@
 let result = " ";
 let yourGuess = "....";
 let computerGuess = "....";
+let isAutoPlay = false;
 let score = JSON.parse(localStorage.getItem("score")) || {
   win: 0,
   lose: 0,
   draw: 0,
 };
 document.getElementById(
-    "container"
-  ).innerHTML = `<p>You <img src="images/rock.png" class="result-img" alt="Rock"> <img src="images/paper.png" class="result-img"  alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
+  "container"
+).innerHTML = `<p>You <img src="images/rock.png" class="result-img" alt="Rock"> <img src="images/paper.png" class="result-img"  alt="Paper"> Computer</p><p>Win: ${score.win} Lose: ${score.lose} Draw: ${score.draw}</p>`;
 function game() {
   // Code for the logic of game
   if (yourGuess == computerGuess) {
@@ -57,6 +58,20 @@ document.getElementById("scissor").addEventListener("click", function () {
   choice();
   game();
 });
+document.getElementById("autoplay").addEventListener("click", function () {
+  if (!isAutoPlay) {
+    isAutoPlay = setInterval(function () {
+      yourGuess = computerGuess;
+      choice();
+      game();
+    }, 1000);
+    document.getElementById("autoplay").innerText = "Stop";
+  } else {
+    clearInterval(isAutoPlay);
+    isAutoPlay = false;
+    document.getElementById("autoplay").innerText = "Auto Play";
+  }
+ });
 document.getElementById("reset").addEventListener("click", function () {
   score.win = 0;
   score.lose = 0;
